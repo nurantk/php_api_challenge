@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SubscriptionRequest;
 use App\Http\Services\PurchaseServiceManager;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -16,16 +17,7 @@ class PurchaseController extends Controller
     {
         $this->purchaseManager = $purchaseManager;
     }
-    public function save(Request $request): JsonResponse{
-        $validateData = Validator::make($request->all(), [
-            'receiptId' => 'required',
-            'clientToken' => 'required',
-        ]);
-
-        if ($validateData->fails()) {
-            return response()->json(["success"=>false,"message"=>"Eksik veri"]);
-        }
-
+    public function save(SubscriptionRequest $request): JsonResponse{
         return $this->purchaseManager->savePurchase($request);
     }
     public function check(Request $request): JsonResponse{
