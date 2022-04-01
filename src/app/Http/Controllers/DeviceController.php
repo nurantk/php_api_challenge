@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\DeviceServiceManager;
+use App\Http\Services\DeviceServiceManager;
 use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Http\JsonResponse;

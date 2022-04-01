@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\PurchaseServiceManager;
+use App\Http\Services\PurchaseServiceManager;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Validator;
