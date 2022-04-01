@@ -15,7 +15,6 @@ class SubscriptionResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
             'uId' => new DeviceResource($this->uId),
             'receiptId' => $this->receiptId,
             'clientToken' => $this->clientToken,
