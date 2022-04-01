@@ -19,6 +19,7 @@ class DeviceResource extends JsonResource
             'uId' => $this->uId,
             'operatingSystem' => $this->operatingSystem,
             'clientToken' => $this->clientToken,
+            'language'=>$this->language
         ];
     }
 }

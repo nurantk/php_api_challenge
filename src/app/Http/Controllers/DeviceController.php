@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\DeviceServiceManager;
 use Illuminate\Http\Request;
 use Validator;
+use Illuminate\Http\JsonResponse;
 
 class DeviceController extends Controller
 {
