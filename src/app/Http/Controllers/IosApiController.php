@@ -5,14 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 
 class IosApiController extends Controller
 {
-    public function __construct()
-    {
-        header('Content-Type: application/json');
-    }
-    public function checkPurchase(Request $request){
+    public function checkPurchase(Request $request): JsonResponse{
 
         $validateData = Validator::make($request->all(), [
             'receiptId' => 'required',

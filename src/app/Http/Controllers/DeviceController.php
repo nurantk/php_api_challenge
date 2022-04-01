@@ -17,7 +17,7 @@ class DeviceController extends Controller
         $this->deviceManager = $deviceManager;
     }
 
-    public function register(Request $request){
+    public function register(Request $request): JsonResponse{
         $validateData = Validator::make($request->all(), [
             'uId' => 'required',
             'appId' => 'required',

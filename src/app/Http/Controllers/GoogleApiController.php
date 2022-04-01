@@ -5,14 +5,11 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Validator;
+use Illuminate\Http\JsonResponse;
 
 class GoogleApiController extends Controller
 {
-    public function __construct()
-    {
-       header('Content-Type: application/json');
-    }
-    public function checkPurchase(Request $request){
+    public function checkPurchase(Request $request): JsonResponse{
 
         $validateData = Validator::make($request->all(), [
             'receiptId' => 'required',
@@ -26,5 +23,6 @@ class GoogleApiController extends Controller
         }else{
             return response()->json(["success"=>true,"status"=>false]);
         }
+
     }
 }

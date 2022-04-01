@@ -6,13 +6,10 @@ use App\Models\Device;
 use App\Models\Subscription;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class PurchaseServiceManager{
 
-    public function __construct()
-    {
-        header('Content-Type: application/json');
-    }
     public function checkApi($operatingSystem,$receiptId){
         try{
             if($operatingSystem=='ios'){
@@ -32,7 +29,7 @@ class PurchaseServiceManager{
             return response()->json(["success"=>false,"message"=>"Hata"]);
         }
     }
-    public function savePurchase(object $request){
+    public function savePurchase(object $request): JsonResponse{
         try{
             $purchase = Subscription::where(['clientToken' =>$request->clientToken, 'receiptId' =>$request->receiptId,'status'=>1])->first();
             if(isset($purchase)){

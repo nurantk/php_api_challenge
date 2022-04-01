@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Services\PurchaseServiceManager;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Validator;
 
 class PurchaseController extends Controller
@@ -16,7 +16,7 @@ class PurchaseController extends Controller
     {
         $this->purchaseManager = $purchaseManager;
     }
-    public function save(Request $request){
+    public function save(Request $request): JsonResponse{
         $validateData = Validator::make($request->all(), [
             'receiptId' => 'required',
             'clientToken' => 'required',
@@ -28,7 +28,7 @@ class PurchaseController extends Controller
 
         return $this->purchaseManager->savePurchase($request);
     }
-    public function check(Request $request){
+    public function check(Request $request): JsonResponse{
         $validateData = Validator::make($request->all(), [
             'clientToken' => 'required',
         ]);

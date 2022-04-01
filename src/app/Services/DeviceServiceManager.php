@@ -3,15 +3,10 @@
 namespace App\Services;
 use App\Models\Device;
 use Illuminate\Support\Str;
+use Illuminate\Http\JsonResponse;
 
 class DeviceServiceManager{
-
-    public function __construct()
-    {
-        header('Content-Type: application/json');
-    }
-
-    public function saveDevice(object $request){
+    public function saveDevice(object $request): JsonResponse{
         try{
             $device = Device::where(['uid' => $request->uId, 'appId' => $request->appId])->first();
             if(isset($device)){
