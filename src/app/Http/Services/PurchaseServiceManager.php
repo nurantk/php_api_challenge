@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 
 class PurchaseServiceManager{
 
-    public function checkApi($operatingSystem,$receiptId){
+    public function checkApi($operatingSystem,$receiptId): JsonResponse{
         try{
             if($operatingSystem=='ios'){
                 $storeUrl=env('APP_URL')."/api/ios-url";
@@ -30,7 +30,6 @@ class PurchaseServiceManager{
         }
     }
     public function savePurchase(object $request): JsonResponse{
-        try{
             $purchase = Subscription::where(['clientToken' =>$request->clientToken, 'receiptId' =>$request->receiptId,'status'=>1])->first();
             if(isset($purchase)){
                 return response()->json(["success"=>false,"message"=>"Ödeme var","data"=>$purchase]);
@@ -52,18 +51,13 @@ class PurchaseServiceManager{
                         }
                         return response()->json(["success"=>false,"message"=>"Servis doğrulamadı"]);
                     }
-                }else{
-                    return response()->json(["success"=>false,"message"=>"Cihaz bulunamadı"]);
                 }
+                return response()->json(["success"=>false,"message"=>"Cihaz bulunamadı"]);
             }
-        }catch (Exception $exception){
-            return response()->json(["success"=>false,"message"=>$exception->getMessage()]);
-        }
-
     }
-    public function checkPurchase($clientToken){
+    public function checkPurchase(object $request) : JsonResponse{
         try{
-            $purchase = Subscription::select('status','expireDate')->where(['clientToken' =>$clientToken,'status'=>1])->where('expireDate','>',Carbon::now())->get();
+            $purchase = Subscription::select('status','expireDate')->where(['clientToken' =>$request->clientToken,'status'=>1])->where('expireDate','>',Carbon::now())->get();
             if($purchase!=null){
                 return response()->json(["success"=>true,"data"=>$purchase]);
             }else{

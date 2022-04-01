@@ -12,7 +12,7 @@ class DeviceRequest extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(
-            response()->json(['success'=>false,'message' => 'Eksik veri','errors' => $validator->errors()], 400)
+            response()->json(['success'=>false,'message' => 'Eksik veri','data' => $validator->errors()], 400)
         );
     }
 
