@@ -7,6 +7,7 @@ use App\Models\Subscription;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 
 class PurchaseServiceManager{
 
@@ -26,6 +27,7 @@ class PurchaseServiceManager{
             $response = json_decode($response);
             return $response;
         }catch (\Exception $exception){
+            Log::error("Purchase api error:".$exception->getMessage());
             return response()->json(["success"=>false,"message"=>"Hata"]);
         }
     }
@@ -64,6 +66,7 @@ class PurchaseServiceManager{
                 return response()->json(["success"=>true,"message"=>"Aktif üyelik yok"]);
             }
         }catch (\Exception $exception){
+            Log::error("Check purchase error:".$exception->getMessage());
             return response()->json(["success"=>false,"message"=>$exception->getMessage()]);
         }
 

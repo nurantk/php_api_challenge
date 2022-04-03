@@ -2,6 +2,7 @@
 
 namespace App\Http\Services;
 use App\Models\Device;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Http\JsonResponse;
 
@@ -22,6 +23,7 @@ class DeviceServiceManager{
                 return response()->json(["success"=>true,"register"=>"OK","data"=>$device]);
             }
         }catch (\Exception $exception){
+            Log::error("Device record error:".$exception->getMessage());
             return response()->json(["success"=>false,"message"=>$exception->getMessage()]);
         }
 
