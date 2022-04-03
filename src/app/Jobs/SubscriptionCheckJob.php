@@ -2,14 +2,15 @@
 
 namespace App\Jobs;
 
-use App\Models\Subscription;
-use App\Services\PurchaseServiceManager;
+use App\Models\Device;
+use App\Http\Services\PurchaseServiceManager;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Http\Request;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class SubscriptionCheckJob implements ShouldQueue
 {
@@ -17,6 +18,7 @@ class SubscriptionCheckJob implements ShouldQueue
 
     protected $subscription;
     protected $purchaseManager;
+    protected $device;
     /**
      * Create a new job instance.
      *
@@ -25,6 +27,7 @@ class SubscriptionCheckJob implements ShouldQueue
     public function __construct($subscription)
     {
         $this->subscription=$subscription;
+        $this->device=Device::find($subscription->uId);
         $this->purchaseManager=new PurchaseServiceManager();
         self::onQueue('check-purchase-worker');
 
@@ -37,13 +40,18 @@ class SubscriptionCheckJob implements ShouldQueue
      */
     public function handle()
     {
-        $response=$this->purchaseManager->checkApi($this->subscription->device()->operatingSystem,$this->subscription->receiptId);
-        if($response->success){
-            if(!$response->status){
-                $this->subscription->status=0;
-                $this->subscription->save();
+        try{
+            $response=$this->purchaseManager->checkApi($this->device->operatingSystem,$this->subscription->receiptId);
+            if($response->success){
+                if(!$response->status){
+                    $this->subscription->status=0;
+                    $this->subscription->save();
+                }
             }
+        }catch (\Exception $exception){
+            Log::error("Job error:".$exception->getMessage());
         }
+
 
     }
 }

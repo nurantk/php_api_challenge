@@ -21,6 +21,7 @@ class CreateSubscriptionsTable extends Migration
             $table->boolean('status');
             $table->timestamp('expireDate')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

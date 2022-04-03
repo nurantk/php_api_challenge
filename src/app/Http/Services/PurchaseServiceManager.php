@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 
 class PurchaseServiceManager{
 
-    public function checkApi($operatingSystem,$receiptId): JsonResponse{
+    public function checkApi($operatingSystem,$receiptId):object{
         try{
             if($operatingSystem=='ios'){
                 $storeUrl=env('APP_URL')."/api/ios-url";

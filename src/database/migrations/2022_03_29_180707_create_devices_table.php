@@ -17,6 +17,7 @@ class CreateDevicesTable extends Migration
             $table->id();
             $table->string('uId',50)->index('uId');
             $table->string('appId',35)->index('appId');
+            $table->string('appUrl',35)->nullable();
             $table->string('operatingSystem',35);
             $table->string('language',35);
             $table->string('clientToken',35);

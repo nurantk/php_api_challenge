@@ -45,7 +45,7 @@ class PurchaseWorker extends Command
             ->where('expireDate', '<', Carbon::now())
             ->get();
         foreach ($subscriptions as $subscription) {
-           SubscriptionCheckJob::dispatch((new SubscriptionCheckJob($subscription)));
+           dispatch((new SubscriptionCheckJob($subscription)));
            $this->info('Cron:purchaseWorker Command Run!');
         }
 

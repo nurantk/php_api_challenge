@@ -8,7 +8,7 @@ use Illuminate\Http\JsonResponse;
 class DeviceServiceManager{
     public function saveDevice(object $request): JsonResponse{
         try{
-            $device = Device::where(['uid' => $request->uId, 'appId' => $request->appId])->first();
+            $device = Device::where(['uId' => $request->uId, 'appId' => $request->appId])->first();
             if(isset($device)){
                 return response()->json(["success"=>true,"register"=>"OK","data"=>$device]);
             }else{
