@@ -27,7 +27,7 @@ class SubscriptionCheckJob implements ShouldQueue
     public function __construct($subscription)
     {
         $this->subscription=$subscription;
-        $this->device=Device::find($subscription->uId);
+        $this->device=$subscription->device;
         $this->purchaseManager=new PurchaseServiceManager();
         self::onQueue('check-purchase-worker');
 
