@@ -34,7 +34,7 @@ class PurchaseServiceManager{
     public function savePurchase(object $request): JsonResponse{
             $purchase = Subscription::where(['clientToken' =>$request->clientToken, 'receiptId' =>$request->receiptId,'status'=>1])->first();
             if(isset($purchase)){
-                return response()->json(["success"=>false,"message"=>"Ödeme var","data"=>$purchase]);
+                return response()->json(["success"=>false,"message"=>"Abonelik var","data"=>$purchase]);
             }else{
                 $device = Device::select('operatingSystem','id')->where(['clientToken'=>$request->clientToken])->first();
                 if(isset($device)){
